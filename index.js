@@ -1,8 +1,10 @@
 var express = require("express");
+var expressOasGenerator = require("express-oas-generator");
 var bodyParser = require("body-parser");
 var sql = require("mssql");
 var app = express(); 
-const swaggerUi = require('swagger-ui-express');
+//expressOasGenerator.init(app,{});
+ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 
@@ -97,7 +99,7 @@ var  executeQuery = function(res, query){
      });           
 }
 
-//app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 app.get("/api/user/:id", function(req , res){

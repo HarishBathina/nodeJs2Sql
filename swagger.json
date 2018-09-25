@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
       "version": "1.0.0",
-      "title": "Swagger Petstore",
-      "description": "A sample API that uses a petstore as an example to demonstrate features in the swagger-2.0 specification",
+      "title": "Swagger Liked Videos",
+      "description": "A sample API that stores Video Id's of liked videos and also retreives. swagger-2.0 specification",
       "termsOfService": "http://swagger.io/terms/",
       "contact": {
         "name": "Swagger API Team"
@@ -12,7 +12,7 @@
         "name": "MIT"
       }
     },
-    "host": "http://localhost:3000",
+    "host": "localhost:3000",
     "basePath": "/api",
     "schemes": [
       "http"
@@ -24,44 +24,24 @@
       "application/json"
     ],
     "paths": {
-      "/pets": {
+      "/user": {
         "get": {
-          "description": "Returns all pets from the system that the user has access to",
-          "operationId": "findPets",
+          "description": "Returns all the data stored about videos",
+          "operationId": "getVideos",
           "produces": [
             "application/json",
             "application/xml",
             "text/xml",
             "text/html"
           ],
-          "parameters": [
-            {
-              "name": "tags",
-              "in": "query",
-              "description": "tags to filter by",
-              "required": false,
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "collectionFormat": "csv"
-            },
-            {
-              "name": "limit",
-              "in": "query",
-              "description": "maximum number of results to return",
-              "required": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          ],
+         
           "responses": {
             "200": {
-              "description": "pet response",
+              "description": "videos response",
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/definitions/Pet"
+                  "$ref": "#/definitions/Video"
                 }
               }
             },
@@ -74,89 +54,28 @@
           }
         },
         "post": {
-          "description": "Creates a new pet in the store.  Duplicates are allowed",
-          "operationId": "addPet",
+          "description": "Creates a new video entry in the table.  Duplicates are allowed",
+          "operationId": "addVideos",
           "produces": [
             "application/json"
           ],
           "parameters": [
             {
-              "name": "pet",
+              "name": "Video",
               "in": "body",
-              "description": "Pet to add to the store",
+              "description": "Video to add to the store",
               "required": true,
               "schema": {
-                "$ref": "#/definitions/NewPet"
+                "$ref": "#/definitions/NewVideo"
               }
             }
           ],
           "responses": {
             "200": {
-              "description": "pet response",
+              "description": "video response",
               "schema": {
-                "$ref": "#/definitions/Pet"
+                "$ref": "#/definitions/Video"
               }
-            },
-            "default": {
-              "description": "unexpected error",
-              "schema": {
-                "$ref": "#/definitions/ErrorModel"
-              }
-            }
-          }
-        }
-      },
-      "/pets/{id}": {
-        "get": {
-          "description": "Returns a user based on a single ID, if the user does not have access to the pet",
-          "operationId": "findPetById",
-          "produces": [
-            "application/json",
-            "application/xml",
-            "text/xml",
-            "text/html"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of pet to fetch",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "pet response",
-              "schema": {
-                "$ref": "#/definitions/Pet"
-              }
-            },
-            "default": {
-              "description": "unexpected error",
-              "schema": {
-                "$ref": "#/definitions/ErrorModel"
-              }
-            }
-          }
-        },
-        "delete": {
-          "description": "deletes a single pet based on the ID supplied",
-          "operationId": "deletePet",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "description": "ID of pet to delete",
-              "required": true,
-              "type": "integer",
-              "format": "int64"
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "pet deleted"
             },
             "default": {
               "description": "unexpected error",
@@ -167,37 +86,28 @@
           }
         }
       }
+      
     },
     "definitions": {
-      "Pet": {
+      "Video": {
         "type": "object",
         "allOf": [
           {
-            "$ref": "#/definitions/NewPet"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "properties": {
-              "id": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
+            "$ref": "#/definitions/NewVideo"
           }
+          
         ]
       },
-      "NewPet": {
+      "NewVideo": {
         "type": "object",
         "required": [
-          "name"
+          "videoId"
         ],
         "properties": {
-          "name": {
+          "videoId": {
             "type": "string"
           },
-          "tag": {
+          "Liked": {
             "type": "string"
           }
         }
